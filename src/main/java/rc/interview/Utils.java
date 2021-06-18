@@ -48,6 +48,7 @@ public class Utils {
             return null;
 
         List<QuarterSalesItem> quarterSalesItems = new ArrayList<>();
+        //group by quarter --> hashMap result
         Map<String, List<SaleItem>> resultMap = separateByQuarter(saleItems);
         if (resultMap.size() == 0)
             return null;
@@ -70,6 +71,7 @@ public class Utils {
             return null;
 
         List<QuarterSalesItem> quarterSalesItems = new ArrayList<>();
+        //group by quarter --> hashMap result
         Map<String, List<SaleItem>> resultMap = separateByQuarter(saleItems);
         resultMap.forEach((key, value) -> {
             Optional<SaleItem> saleItemOptional = value.stream().max(Comparator.comparingDouble(SaleItem::getAmount));
@@ -90,13 +92,10 @@ public class Utils {
      */
 
     public static int[] getUnUsedKeys(int[] allKeys, int[] usedKeys) {
-//		List<Integer> allKeysList = Arrays.stream(allKeys).boxed().collect(Collectors.toList());
-//		List<Integer> usedKeysList = Arrays.stream(usedKeys).boxed().collect(Collectors.toList());
-//		allKeysList.removeAll(usedKeysList);
-//		return allKeysList.stream().mapToInt(Integer::valueOf).toArray();
-        // 差集 (list1 - list2)
+
         List<Integer> allKeysList = Arrays.stream(allKeys).boxed().collect(toList());
         List<Integer> usedKeysList = Arrays.stream(usedKeys).boxed().collect(toList());
+
         List<Integer> results = allKeysList.stream().filter(item -> !usedKeysList.contains(item)).collect(toList());
         return results.stream().mapToInt(Integer::valueOf).toArray();
 
