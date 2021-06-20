@@ -10,14 +10,15 @@ import java.util.List;
 
 public class UtilsSortByExtTypeTest {
 
-    List<Extension> emptyList, fullList;
+    List<Extension> emptyList, fullList, expectedList;
 
     @Before
-    public void setUp(){
+    public void setUp() {
 
 
         emptyList = new ArrayList<>();
         fullList = new ArrayList<>();
+        expectedList = new ArrayList<>();
         Extension ext1 = new Extension("B", "Wu", "ext1", "Dept");
         Extension ext2 = new Extension("B", "Au", "auExt", "extType2");
         Extension ext3 = new Extension("A", "Wu", "ext2", "User");
@@ -31,6 +32,14 @@ public class UtilsSortByExtTypeTest {
         fullList.add(ext4);
         fullList.add(ext5);
         fullList.add(ext6);
+
+        expectedList.add(ext3);
+        expectedList.add(ext1);
+        expectedList.add(ext6);
+        expectedList.add(ext4);
+        expectedList.add(ext5);
+        expectedList.add(ext2);
+
         //expect ext3> ext1>ext6>ext4>ext5>ext2
     }
 
@@ -48,14 +57,12 @@ public class UtilsSortByExtTypeTest {
     public void sortByExtType() {
 
         List<Extension> results = Utils.sortByExtType(fullList);
-        Assert.assertEquals("User", results.get(0).getExtType());
-        Assert.assertEquals("TMO", results.get(3).getExtType());
-        Assert.assertEquals("extType2", results.get(5).getExtType());
+        Assert.assertArrayEquals(expectedList.toArray(), results.toArray());
 
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         emptyList = null;
         fullList = null;
     }

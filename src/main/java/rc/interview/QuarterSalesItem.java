@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuarterSalesItem {
-	private int quarter;
-	private double amount;
-	
+    private int quarter;
+    private double amount;
+
 }

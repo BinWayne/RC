@@ -11,12 +11,13 @@ import java.util.List;
 
 public class UtilsSortByNameTest {
 
-    List<Extension> emptyList, fullList;
+    List<Extension> emptyList, fullList, expectedList;
 
     @Before
     public void setUp() {
         emptyList = new ArrayList<>();
         fullList = new ArrayList<>();
+        expectedList = new ArrayList<>();
         Extension ext1 = new Extension("B", "Wu", "ext1", "extType1");
         Extension ext2 = new Extension("B", "Au", "auExt", "extType2");
         Extension ext3 = new Extension("A", "Wu", "ext2", "extType3");
@@ -30,6 +31,13 @@ public class UtilsSortByNameTest {
         fullList.add(ext4);
         fullList.add(ext5);
         fullList.add(ext6);
+
+        expectedList.add(ext5);
+        expectedList.add(ext4);
+        expectedList.add(ext3);
+        expectedList.add(ext6);
+        expectedList.add(ext2);
+        expectedList.add(ext1);
         //sortByName expect --> ext5,ext4,ext3,ext6,ext2,ext1
     }
 
@@ -49,8 +57,8 @@ public class UtilsSortByNameTest {
     public void sortByName() {
 
         List<Extension> results = Utils.sortByName(fullList);
-        Assert.assertEquals("extType2", results.get(4).getExtType());
-        Assert.assertEquals("extType3", results.get(2).getExtType());
+        Assert.assertArrayEquals(expectedList.toArray(), results.toArray());
+
 
     }
 

@@ -11,12 +11,14 @@ import java.util.List;
 
 public class UtilsSumByQuarterTest {
 
-    List<SaleItem> emptyList,fullList;
+    List<SaleItem> emptyList, fullList;
+    List<QuarterSalesItem> expectedList;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         emptyList = new ArrayList<>();
         fullList = new ArrayList<>();
+        expectedList = new ArrayList<>();
         SaleItem saleItem1 = new SaleItem(1, "2", 22.2);
         SaleItem saleItem2 = new SaleItem(2, "1", 22.2);
         SaleItem saleItem4 = new SaleItem(4, "1", 22.2);
@@ -28,7 +30,17 @@ public class UtilsSumByQuarterTest {
         fullList.add(saleItem8);
         fullList.add(saleItem11);
 
+        QuarterSalesItem firstQuarter = new QuarterSalesItem(1, 44.4);
+        QuarterSalesItem secondQuarter = new QuarterSalesItem(2, 22.2);
+        QuarterSalesItem thirdQuarter = new QuarterSalesItem(3, 22.2);
+        QuarterSalesItem fourthQuarter = new QuarterSalesItem(4, 22.2);
+        expectedList.add(firstQuarter);
+        expectedList.add(secondQuarter);
+        expectedList.add(thirdQuarter);
+        expectedList.add(fourthQuarter);
+
     }
+
     @Test
     public void sumByQuarterIfListIsNull() {
         List<QuarterSalesItem> results = Utils.sumByQuarter(emptyList);
@@ -39,13 +51,11 @@ public class UtilsSumByQuarterTest {
     public void sumByQuarterIfListNotNull() {
 
         List<QuarterSalesItem> results = Utils.sumByQuarter(fullList);
-        Assert.assertEquals(44.4, results.get(0).getAmount(), 0);
-        Assert.assertEquals(22.2, results.get(1).getAmount(), 0);
-        Assert.assertEquals(22.2, results.get(2).getAmount(), 0);
+        Assert.assertArrayEquals(expectedList.toArray(), results.toArray());
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         emptyList = null;
         fullList = null;
     }

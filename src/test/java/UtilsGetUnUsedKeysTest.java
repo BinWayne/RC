@@ -2,18 +2,23 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import rc.interview.Utils;
+
 import java.util.*;
 
 public class UtilsGetUnUsedKeysTest {
 
-    int[] allKeys, usedKeys, emptyKeys, duplicatedKeys;
+    int[] allKeys, usedKeys, expected, emptyKeys, duplicatedKeys, expectedDup;
 
     @Before
     public void setUp() {
-        allKeys = new int[]{2, 3, 4, 5, 6, 7};
+        allKeys = new int[]{4, 10, 9, 5, 6, 7};
         usedKeys = new int[]{3, 4};
+        expected = new int[]{5, 6, 7, 9, 10};
+
+
         emptyKeys = new int[]{};
-        duplicatedKeys = new int[]{2, 3, 3, 5, 5, 6, 7};
+        duplicatedKeys = new int[]{10, 34, 3, 3, 5, 5, 6, 7};
+        expectedDup = new int[]{5, 5, 6, 7, 10, 34};
 
     }
 
@@ -25,8 +30,9 @@ public class UtilsGetUnUsedKeysTest {
 
 
         int[] results = Utils.getUnUsedKeys(allKeys, usedKeys);
-        Assert.assertEquals(4, results.length);
-        Assert.assertFalse(Arrays.asList(results).contains(3));
+
+
+        Assert.assertArrayEquals(expected, results);
     }
 
     @Test
@@ -59,9 +65,7 @@ public class UtilsGetUnUsedKeysTest {
 
 
         int[] results = Utils.getUnUsedKeys(duplicatedKeys, usedKeys);
-
-        Assert.assertEquals(5, results.length);
-        Assert.assertFalse(Arrays.asList(results).contains(3));
+        Assert.assertArrayEquals(expectedDup, results);
 
     }
 

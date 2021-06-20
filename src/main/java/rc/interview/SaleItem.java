@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SaleItem {
-	private int month;
-	private String transactionId;
-	private double amount;
+    private int month;
+    private String transactionId;
+    private double amount;
 
 }

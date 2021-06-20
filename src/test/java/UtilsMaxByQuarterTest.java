@@ -2,7 +2,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import rc.interview.Extension;
 import rc.interview.QuarterSalesItem;
 import rc.interview.SaleItem;
 import rc.interview.Utils;
@@ -12,12 +11,15 @@ import java.util.List;
 
 public class UtilsMaxByQuarterTest {
 
-    List<SaleItem> emptyList,fullList;
+    List<SaleItem> emptyList, fullList;
+    List<QuarterSalesItem> expectedList;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         emptyList = new ArrayList<>();
         fullList = new ArrayList<>();
+        expectedList = new ArrayList<>();
+
         SaleItem saleItem1 = new SaleItem(1, "2", 22.2);
         SaleItem saleItem2 = new SaleItem(2, "1", 32.2);
 
@@ -36,6 +38,15 @@ public class UtilsMaxByQuarterTest {
         fullList.add(saleItem9);
         fullList.add(saleItem11);
 
+        QuarterSalesItem firstQuarter = new QuarterSalesItem(1, 32.2);
+        QuarterSalesItem secondQuarter = new QuarterSalesItem(2, 22.2);
+        QuarterSalesItem thirdQuarter = new QuarterSalesItem(3, 22.2);
+        QuarterSalesItem fourthQuarter = new QuarterSalesItem(4, 22.2);
+        expectedList.add(firstQuarter);
+        expectedList.add(secondQuarter);
+        expectedList.add(thirdQuarter);
+        expectedList.add(fourthQuarter);
+
     }
 
 
@@ -50,21 +61,11 @@ public class UtilsMaxByQuarterTest {
     public void maxIfListIsNotNull() {
 
         List<QuarterSalesItem> results = Utils.maxByQuarter(fullList);
-        //First quarter should be 32.2
-        Assert.assertEquals(32.2, results.get(0).getAmount(), 0);
-
-        //Second quarter should be 32.2
-        Assert.assertEquals(22.2, results.get(1).getAmount(), 0);
-
-        //Third quarter should be 32.2
-        Assert.assertEquals(22.2, results.get(2).getAmount(), 0);
-
-        //Fourth quarter should be 32.2
-        Assert.assertEquals(22.2, results.get(3).getAmount(), 0);
+        Assert.assertArrayEquals(expectedList.toArray(), results.toArray());
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         emptyList = null;
         fullList = null;
     }

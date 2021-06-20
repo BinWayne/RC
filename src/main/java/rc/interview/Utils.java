@@ -1,7 +1,9 @@
 package rc.interview;
 
 import rc.interview.comparator.ExtypeComparator;
+
 import java.util.*;
+
 import static java.util.stream.Collectors.toList;
 
 public class Utils {
@@ -97,6 +99,7 @@ public class Utils {
         List<Integer> usedKeysList = Arrays.stream(usedKeys).boxed().collect(toList());
 
         List<Integer> results = allKeysList.stream().filter(item -> !usedKeysList.contains(item)).collect(toList());
+        Collections.sort(results);
         return results.stream().mapToInt(Integer::valueOf).toArray();
 
     }
